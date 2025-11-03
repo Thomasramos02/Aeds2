@@ -1,57 +1,66 @@
 package Pilhas;
 
-public class pilha{
-    int topo;
-    int[] x;
+public class pilha {
+    private int topo;
+    private Object[] array;
+    private int tamanho;
     
-    public pilha(int[] x) {
+    public pilha(int capacidade) {
         this.topo = -1;
-        this.x = x;
+        this.array = new Object[capacidade];
+        this.tamanho = capacidade;
     }
 
-    //verifica se a pilha esta cheia
-    public Boolean isCheia(){
-        if(topo == x.length - 1){
-            return true;
+    public pilha() {
+        this(10); // Construtor padrão com capacidade 10
+    }
+
+    // Verifica se a pilha está cheia
+    public boolean isCheia() {
+        return topo == tamanho - 1;
+    }
+
+    // Verifica se a pilha está vazia
+    public boolean isVazia() {
+        return topo == -1;
+    }
+
+    // Insere elemento na pilha
+    public void inserir(Object elemento) {
+        if (isCheia()) {
+            // Cria novo array com tamanho dobrado
+            Object[] novoArray = new Object[tamanho * 2];
+            for (int i = 0; i <= topo; i++) {
+                novoArray[i] = array[i];
+            }
+            array = novoArray;
+            tamanho *= 2;
         }
-        return false;
+        topo++;
+        array[topo] = elemento;
     }
 
-    //verifica se a pilha esta vazia
-    public Boolean isVazia(){
-        if(topo == -1){
-            return true;
+    // Remove elemento da pilha
+    public Object remover() {
+        if (isVazia()) {
+            throw new IllegalStateException("A pilha está vazia");
         }
-        return false;
+        Object valor = array[topo];
+        array[topo] = null; // Limpa a referência
+        topo--;
+        return valor;
     }
 
-    //inseri elemento na pilha
-    public void Inserir(int elemento){
-        if(topo == x.length-1){
-            System.out.println("Pilha esta cheia, não é possivel inserir");
-        }else{
-           topo++;
-           x[topo] =elemento;
+    // Consulta o topo da pilha
+    public Object consultarTopo() {
+        if (isVazia()) {
+            throw new IllegalStateException("A pilha está vazia");
         }
+        return array[topo];
     }
-
-    //remove elemento da pilha
-    public void remover(){
-        if(topo == -1){
-            System.out.println("A pilha esta vazia, não é possivel remover");
-        }else{
-            int valor = x[topo];
-            topo--;
-            System.out.println("Valor removido: "+valor);
-        }
+    
+    // Retorna o tamanho atual da pilha
+    public int getTamanho() {
+        return topo + 1;
     }
-
-    //consulta o topo da pilha
-    public int ConsultarTopo(){
-        if(topo == -1){
-            throw new IllegalStateException();
-        }
-        return x[topo];
-    }
-
 }

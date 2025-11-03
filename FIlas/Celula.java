@@ -1,23 +1,26 @@
 package FIlas;
 
 public class Celula {
-    int elemento;
-    Celula prox;
+    private Object elemento;
+    private Celula prox;
 
-    public Celula(int elemento, Celula prox){
+    // Construtor para criar célula vazia
+    public Celula() {
+        this(null);
+    }
+
+    // Construtor para criar célula com elemento
+    public Celula(Object elemento) {
         this.elemento = elemento;
         this.prox = null;
     }
 
-    public Celula() {
-        //TODO Auto-generated constructor stub
-    }
-
-    public int getElemento() {
+    // Getters e Setters
+    public Object getElemento() {
         return elemento;
     }
 
-    public void setElemento(int elemento) {
+    public void setElemento(Object elemento) {
         this.elemento = elemento;
     }
 
